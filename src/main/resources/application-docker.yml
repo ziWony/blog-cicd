@@ -1,0 +1,29 @@
+server:
+  servlet:
+    encoding:
+      charset: utf-8
+      force: true
+  port: 8080
+
+spring:
+  mustache:
+    servlet:
+      expose-session-attributes: true
+      expose-request-attributes: true
+  # 1 환경변수를 가져와서 사용
+  datasource:
+    url: jdbc:mysql://${rds.hostname}:${rds.port}/${rds.db.name}?allowPublicKeyRetrieval=true&useSSL=false
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${rds.username}
+    password: ${rds.password}
+  jpa:
+    # 2 테이블을 자동 생성하면 안된다. 직접 만들어야 한다.
+    hibernate:
+      ddl-auto: none
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+
+logging:
+  level:
+    '[shop.mtcoding.blogv2]': INFO
+    '[org.hibernate.type]': TRACE

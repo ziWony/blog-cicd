@@ -1,0 +1,45 @@
+# 1
+server:
+  servlet:
+    encoding:
+      charset: utf-8
+      force: true
+  port: 8080
+
+spring:
+  # 2
+  mustache:
+    servlet:
+      expose-session-attributes: true
+      expose-request-attributes: true
+  # 3
+  datasource:
+    url: jdbc:h2:mem:test;MODE=MySQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+  # 7 서버 실행시에 data.sql 실행
+  sql:
+    init:
+      data-locations:
+        - classpath:db/data.sql
+  jpa:
+    # 8 ddl-auto create 작동 시점을 sql init 보다 빠르게 설정
+    defer-datasource-initialization: true
+    # 4
+    hibernate:
+      ddl-auto: create
+    # 5
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+# 6
+logging:
+  level:
+    '[shop.mtcoding.blogv2]': INFO
+    '[org.hibernate.type]': TRACE
